@@ -34,7 +34,7 @@ module InPlaceEditing
         if @item.update_attribute_with_validation(attribute, params[:value])
           display_value = params[:value].blank? && options[:empty_text] ? options[:empty_text] : CGI::escapeHTML(@item.send(attribute).to_s)
         else
-          display_value = attribute.to_s.humanize + ' ' + @item.errors.on(attribute) || 'Oooops!'
+          display_value = @item.errors.full_messages.join(". <br />\n") || 'Oooops!'
         end
         render :text => display_value
       end
